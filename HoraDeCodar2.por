@@ -2,7 +2,8 @@ programa{
 
 	inclua biblioteca Util --> u
 	
-	funcao inicio(){
+	funcao inicio()
+{
 
 		
 	
@@ -13,7 +14,7 @@ programa{
 		real maiorNumero = verificarMaiorNumero()
 
 		escreva("Dentre os numero digitados o maior é: "+maiorNumero)
-		aguardeDepoisLimpe()
+		limparConsole()
 		
 		/* Exercicio 2
 		* Faça um programa que leia um valor 
@@ -24,7 +25,7 @@ programa{
 		cadeia sinalOuZero = verificarSinalOuZero()
 		
 		escreva("O número digitado é: "+sinalOuZero)
-		aguardeDepoisLimpe()
+		limparConsole()
 
 		
 		/*Exercicio 3
@@ -36,7 +37,7 @@ programa{
 		real maiorValor = verificarMaiorValor()
 		
 		escreva("O maior valor dentre os digitados é: "+maiorValor)
-		aguardeDepoisLimpe()
+		limparConsole()
 		
 		/*Exercicio 4
 		* Faça um programa que leia 3 valores 
@@ -48,7 +49,7 @@ programa{
 		real somaMaioresValores = somarDoisMaioresValores()
 
 		escreva("A soma dos 2 maiores valores informados é: "+ somaMaioresValores)
-		aguardeDepoisLimpe()
+		limparConsole()
 
 		/*Exercicio 5
 		 * Faça um programa que leia 6 valores informados pelo usuário, calcule, exiba os números 
@@ -63,7 +64,7 @@ programa{
 			senao escreva(valoresMediaAritmetica[i])
 		}
 		escreva("\nA média aritmetica dos valores é: "+valoresMediaAritmetica[6] )
-		aguardeDepoisLimpe()
+		limparConsole()
 
 
 		/*Exercicio 6
@@ -81,7 +82,7 @@ programa{
 			se(valorTempEx6 > maiorValorEx6) maiorValorEx6 = valorTempEx6
 		}
 		escreva("O primeiro valor digitado foi: ",valoresEx6[0],"\nO último valor digitado foi: ",valoresEx6[3],"\nO maior valor digitado foi: ",maiorValorEx6)
-		aguardeDepoisLimpe()
+		limparConsole()
 
 
 		/* Exercicio 7
@@ -105,7 +106,7 @@ programa{
 			
 		}
 		escreva("\nO resultado da soma é: ", resultadoSomaEx7)
-		aguardeDepoisLimpe()
+		limparConsole()
 		
 		/*Exercicio 8
 		 * Escreva um programa que calcule a média de quatro números informados pelo usuário, mas somente se esses números forem 
@@ -133,12 +134,58 @@ programa{
 
 		se(mediaValores > 5) escreva("Você passou no teste")
 		senao escreva("Tente novamente")
+		limparConsole()
+
+		/*Exercicio 9
+		 * Escreva um programa para ler o ano de nascimento de uma pessoa e escrever uma mensagem que 
+		 * diga se ela poderá ou não votar este ano (não é necessário considerar o mês em que ela nasceu).
+		 */
+
+		inteiro ano
+
+		escreva("Digite o ano do seu nascimento: ")
+		leia(ano)
+		se(2026 - ano >= 16) escreva("Você pode votar!")
+		senao escreva("Você ainda não pode votar!")
+		limparConsole()
+
+		/*Exercicio 10
+		 *  Tendo como entrada a altura e o gênero designado ao nascer 
+		 *  (codificado da seguinte forma: 1: feminino - 2: masculino - ) de uma pessoa, 
+		 *  construa um programa que calcule e imprima seu peso ideal, utilizando as seguintes fórmulas.
+		 */
+
+		real pesoIdeal = calcularPesoIdeal()
+		escreva("Seu peso ideal é: ", pesoIdeal,"Kg")
+		limparConsole()
+
+		/*Exercicio 11
+		 * Uma micro calculadora
+		Escreva um programa para ler 2 valores inteiros informados pelo usuário e uma das seguintes operações a serem executadas
+		(codificada da seguinte forma: 1. Adição, 2. Subtração, 3. Divisão, 4. Multiplicação).
+		O programa deve calcular e escrever o resultado dessa operação sobre os dois valores lidos. 
+
+		Observação: Considere que só serão lidos os valores 1, 2, 3 ou 4 para as operações
+		 */
+
+		real resultadoOperacao = usarMicroCalculadora()
+		escreva("O resultado da sua operação é: " + resultadoOperacao)
+		
 		
 	}
-	funcao vazio aguardeDepoisLimpe(){
-		/*a variavel abaixo deve ser utilizada quando necessitar manter o historico do console, porém a formatação que já não é boa
+	funcao vazio limparConsole(){
+		cadeia nada
+		escreva("\n\nA atividade atual chegou ao Fim! Pressione Enter para Limpar o console e continuar. \n")
+		leia(nada)
+		limpa()
+		escreva("O Console foi limpo!!!\n\n")
+	}
+
+	/*
+	 * funcao vazio aguardeDepoisLimpe(){
+		*a variavel abaixo deve ser utilizada quando necessitar manter o historico do console, porém a formatação que já não é boa
 		 * vai ficar ainda pior. falso = vai apagar os resultados a cada exercicio, verdadeiro = nunca limpa o console
-		 */
+		 
 		
 		logico manterHistorico = falso
 
@@ -157,7 +204,8 @@ programa{
 		limpa()
 		escreva("A Limpeza do console foi concluida\n\n\n")
 		}
-
+	 */
+		
 	funcao real verificarMaiorNumero(){
 		real numero1, numero2
 
@@ -231,6 +279,58 @@ programa{
 		retorne
 		
 	}
+
+	funcao real calcularPesoIdeal(){
+			real altura, pesoIdeal =0.0
+			inteiro genero
+
+			escreva("Qual sua altura: ")
+			leia(altura)
+
+			faca{
+				escreva("Qual seu gênero ?\n")
+				escreva("Digite 1 - feminino ou 2 - masculino: ")
+				leia(genero)
+				se (genero == 1){
+					pesoIdeal = (62.1*altura) - 44.7
+				} senao se(genero == 2){
+					pesoIdeal = (72.7* altura) - 58
+				} senao escreva("Errou!!!\n")
+			
+			}enquanto (genero <1 ou genero >2)
+			retorne pesoIdeal
+		}
+
+	funcao real usarMicroCalculadora(){
+			real valor1, valor2, resultado = 0
+			inteiro operacao
+			escreva("1 - Adição, 2 - Subtração, 3 - Divisão, 4 - Multiplicação")
+			escreva("\nQual tipo de operação você deseja realizar: ")
+			leia(operacao)
+			escreva("\nAbaixo digite um valor dê enter e depois digite o segundo valor.")
+			escreva("\nDigite um valor: ")
+			leia(valor1, valor2)
+			
+			escolha(operacao){
+				caso 1:
+					resultado = valor1 + valor2
+				pare
+				caso 2:
+					resultado = valor1 - valor2
+				pare
+				caso 3:
+					resultado = valor1 / valor2
+				pare
+				caso 4:
+					resultado = valor1 * valor2
+				pare
+				caso contrario: 
+					escreva("Sinto muito, mas a opção não existe então o programa terá como resultado 0")
+				pare
+			}
+			retorne resultado
+			
+		}
 }
 /* $$$ Portugol Studio $$$ 
  * 
@@ -242,4 +342,16 @@ programa{
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz;
+ */
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 5462; 
+ * @DOBRAMENTO-CODIGO = [208, 225, 235, 246, 267];
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
