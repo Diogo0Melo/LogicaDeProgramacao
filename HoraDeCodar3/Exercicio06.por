@@ -11,8 +11,8 @@ programa
 		 * novamente, caso contrário deve ser encerrado exibindo a quantidade de alunos aprovados.
 		 */
 
-		cadeia continuar="Sim"
-		inteiro valor1,valor2,resultado
+		cadeia continuar=""
+		real valor1,valor2,resultado
 
 		enquanto(continuar != "Não"){
 			escreva("Digite a primeira nota do aluno: ")
@@ -24,6 +24,9 @@ programa
 			resultado = (valor1 + valor2) / 2
 			
 			escreva("A média final do alunos é: ",resultado,"\n")
+			
+			se(resultado >= 9.5) escreva("O aluno está aprovado!\n")
+			senao escreva("O aluno está reprovado")
 
 			escreva("\n\nCalcular a média de outro aluno Sim/Não?")
 			leia(continuar)
@@ -40,7 +43,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 815; 
+ * @POSICAO-CURSOR = 589; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
