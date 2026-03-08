@@ -4,6 +4,7 @@ const val NOME_HOTEL = "Hotel Tasokare"
 const val SENHA_HOTEL = 2678
 val QUARTOS = cadastrarQuartos()
 val nomeFuncionario: String = loginFuncionario()
+var hospedesCadastrados = mutableListOf<String>()
 
 fun main() {
     // Função principal que chama a função inicio().
@@ -12,7 +13,7 @@ fun main() {
 
 fun inicio() {
     print("Bem vindo ao $NOME_HOTEL!\n")
-    println("1 - Reservar Quarto; 2 - Cadastrar Hóspedes;")
+    println("1 - Reservar Quarto; 2 - Cadastrar Hóspedes; 3 - Menu Hóspedes;")
     println("Escolha uma opção:")
     // A varival escolha armazena a opção escolhida pelo usuário.
     // uma variavel local é utilizada apenas dentro da função inicio().
@@ -20,8 +21,9 @@ fun inicio() {
     return when (escolha) {
         1 -> reservarQuarto()
         2 -> cadastrarHospedes()
-        3 -> AbastecimentoDeAutomoveis()
-        4 -> sairDoHotel()
+        3 -> menuHospedes()
+        4 -> AbastecimentoDeAutomoveis()
+        5 -> sairDoHotel()
         else -> erro()
     }
 }
