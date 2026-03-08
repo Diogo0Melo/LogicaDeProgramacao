@@ -66,7 +66,7 @@ var nomeFuncionario: String = ""
 fun inicio() {
     if (nomeFuncionario == "") logar()
     println("Bem-vindo ao Tasokare Hotel, $nomeFuncionario. É um imenso prazer ter você por aqui!")
-    println("1. Menu de Hóspedes - 2. Reservar Quarto - 3. Reservar Espaço para Eventos - 4. Abastecimento de Automóveis - 5. Sair do Hotel")
+    println("1. Menu de Hóspedes - 2. Reservar Quarto - 3. Reservar Espaço para Eventos - 4. Abastecimento de Automóveis - 5. Manutenção de Ar Condicionados - 6. Sair do Hotel")
     println("Escolha uma opção:")
     // A varival escolha armazena a opção escolhida pelo usuário.
     // uma variavel local é utilizada apenas dentro da função inicio().
@@ -76,7 +76,8 @@ fun inicio() {
         2 -> reservarQuarto()
         3 -> reservarEspacoEventos()
         4 -> abastecimentoDeAutomoveis()
-        5 -> sairDoHotel()
+        5 -> manutencaoArCondicionados()
+        6 -> sairDoHotel()
         else -> erroMenuPrincipal()
     }
 }
@@ -640,6 +641,71 @@ fun abastecimentoDeAutomoveis() {
     return inicio()
 }
 
+fun manutencaoArCondicionados() {
+    val empresasContatadas =
+        mutableMapOf<String, Double>() // O nome da empresa é a chave e o valor do orçamento é o valor do mapa.
+
+
+
+    while (true) {
+        println("MANUTENÇÃO DE AR CONDICIONADOS\n")
+
+        println("Digite 'VOLTAR' para retornar ao menu principal. AVISO: os dados informados até o momento não serão salvos ou processados.")
+
+        println("Qual o nome da empresa?")
+        val nomeEmpresa = readln()
+
+        if (nomeEmpresa.uppercase() == "VOLTAR") {
+            println("Retornando ao menu principal.")
+            enter()
+            return inicio()
+        }
+
+        println("Qual o valor por aparelho?")
+        val valorAparelho = readln().toDoubleOrNull()
+
+        println("Qual a quantidade de aparelhos?")
+        val qtdAparelhos = readln().toIntOrNull()
+
+        println("Qual a porcentagem de desconto?")
+        val porcentagemDesconto = readln().toDoubleOrNull()
+
+        println("Qual o número mínimo de aparelhos para conseguir o desconto?")
+        val qtdMinimaDesconto = readln().toIntOrNull()
+
+        if (nomeEmpresa.isEmpty() || valorAparelho == null || valorAparelho <= 0 || qtdAparelhos == null || qtdAparelhos <= 0 || porcentagemDesconto == null || porcentagemDesconto < 0 || porcentagemDesconto > 100 || qtdMinimaDesconto == null || qtdMinimaDesconto <= 0) {
+            println("Dados inválidos. Por favor, informe os dados corretamente.")
+            continue
+        }
+
+        val valorTotal: Double = valorAparelho * qtdAparelhos
+        val valorComDesconto: Double =
+            if (qtdMinimaDesconto in 2..qtdAparelhos) valorTotal - valorTotal * (porcentagemDesconto / 100) else valorTotal
+
+        println("O serviço da empresa $nomeEmpresa custará um total de R$${"%.2f".format(valorComDesconto)}.")
+
+        empresasContatadas[nomeEmpresa] = valorComDesconto
+
+        var resposta: String
+
+        while (true) {
+            println("Deseja adicionar outra empresa? S/N")
+            resposta = readln().uppercase()
+            when (resposta) {
+                "S" -> break
+                "N" -> break
+                else -> println("Opção inválida. Por favor, responda com S ou N.")
+            }
+        }
+        if (resposta == "N") break
+    }
+
+    val melhorEmpresa = empresasContatadas.minBy { it.value }
+    println("A melhor opção é a empresa ${melhorEmpresa.key} com um custo total de R$${"%.2f".format(melhorEmpresa.value)}.")
+
+    enter()
+    return inicio()
+}
 
 fun erroMenuPrincipal() {
     println("Por favor, informe um número entre 1 e 6.")
@@ -651,7 +717,7 @@ fun erroMenuHospedes() {
     return menuHospedes()
 }
 
-fun voltarAoMenuPrincipal(){
+fun voltarAoMenuPrincipal() {
     println("Retornando ao menu principal.")
     enter()
     inicio()
