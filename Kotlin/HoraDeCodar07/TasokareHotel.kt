@@ -326,7 +326,7 @@ fun listarHospedesSelecionados(hospedes: List<Hospede>): String {
     return hospedes.joinToString { it.nome }
 }
 
-fun mostrarQuartos() {
+private fun mostrarQuartos() {
     println("QUARTOS DO HOTEL\n")
     QUARTOS.forEach { quarto ->
         println("Quarto ${quarto.numero}: ${quarto.estaOcupado()} - Dias reservado: ${quarto.diasReservado} - Hóspedes: ${quarto.hospedes?.joinToString { it.nome } ?: "Nenhum"}")
