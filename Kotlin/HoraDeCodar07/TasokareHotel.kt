@@ -17,6 +17,10 @@ val CUSTOS_BUFFET = mapOf(
 )
 val DIAS_UTEIS = listOf("Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira")
 val FIM_DE_SEMANA = listOf("Sábado", "Domingo")
+val POSTOS_DISPONIVEIS = listOf(
+    Posto("Wayne Oil", 0.0, 0.0, ""),
+    Posto("Stark Petrol", 0.0, 0.0, "")
+)
 
 class Quarto(
     val numero: Int,
@@ -60,6 +64,7 @@ class ReservaEvento(
     val espacoEvento: EspacoEvento
 )
 
+class Posto(val nome: String, var precoAlcool: Double, var precoGasolina: Double, var maisBarato: String)
 
 var nomeFuncionario: String = ""
 
@@ -607,38 +612,57 @@ fun calcularCustoBuffet(precoCafe: Double, precoAgua: Double, precoSalgados: Dou
 }
 
 fun abastecimentoDeAutomoveis() {
-    val postosDisponiveis = arrayOf("Posto Wayne Oil", "Posto Stark Petrol")
 
     println("ABASTECIMENTO DE AUTOMÓVEIS\n")
 
-    println("Qual o valor do álcool no posto ${postosDisponiveis[0]}?")
-    val valorAlcoolWayne = readln().toDoubleOrNull()
-
-    println("Qual o valor da gasolina no posto ${postosDisponiveis[0]}?")
-    val valorGasolinaWayne = readln().toDoubleOrNull()
-
-    println("Qual o valor do álcool no posto ${postosDisponiveis[1]}?")
-    val valorAlcoolStark = readln().toDoubleOrNull()
-
-    println("Qual o valor da gasolina no posto ${postosDisponiveis[1]}?")
-    val valorGasolinaStark = readln().toDoubleOrNull()
-
-    if (valorAlcoolWayne == null || valorGasolinaWayne == null || valorAlcoolStark == null || valorGasolinaStark == null) {
-        println("Valor inválido. Por favor, informe um número válido para os preços dos combustíveis.")
-        return abastecimentoDeAutomoveis()
+    POSTOS_DISPONIVEIS.forEach { posto ->
+        lerPrecoAlcool(posto)
+        lerPrecoGasolina(posto)
     }
+    val postoAlcoolBarato = POSTOS_DISPONIVEIS.minBy { it.precoAlcool }
+    val postoGasolinaBarata = POSTOS_DISPONIVEIS.minBy { it.precoGasolina }
 
-    val melhorPrecoAlcool = if (valorAlcoolWayne < valorAlcoolStark) valorAlcoolWayne else valorAlcoolStark
-    val melhorPrecoGasolina = if (valorGasolinaWayne < valorGasolinaStark) valorGasolinaWayne else valorGasolinaStark
-    val melhorPrecoCombustivel = if (melhorPrecoAlcool / melhorPrecoGasolina < 0.7) "álcool" else "gasolina"
+    val melhorPosto = calcularMelhorPrecoCombustivel(postoAlcoolBarato, postoGasolinaBarata)
 
-    when (melhorPrecoCombustivel) {
-        "álcool" -> println("$nomeFuncionario, é mais barato abastecer com álcool no posto ${postosDisponiveis[0]}")
-        "gasolina" -> println("$nomeFuncionario, é mais barato abastecer com gasolina no posto ${postosDisponiveis[1]}")
+    when (melhorPosto.maisBarato) {
+        "álcool" -> println("$nomeFuncionario, é mais barato abastecer com álcool no posto ${melhorPosto.nome}")
+        "gasolina" -> println("$nomeFuncionario, é mais barato abastecer com gasolina no posto ${melhorPosto.nome}")
     }
 
     enter()
     return inicio()
+}
+
+fun lerPrecoAlcool(posto: Posto){
+    println("Qual o valor do álcool no posto ${posto.nome}?")
+    posto.precoAlcool = readln().toDoubleOrNull() ?: 0.0
+    if (posto.precoAlcool <= 0.0) {
+        println("Valor inválido. Por favor, informe um número válido para o preço do álcool.")
+        return lerPrecoAlcool(posto)
+    }
+}
+
+fun lerPrecoGasolina(posto: Posto){
+    println("Qual o valor da gasolina no posto ${posto.nome}?")
+    posto.precoGasolina = readln().toDoubleOrNull() ?: 0.0
+    if (posto.precoAlcool <= 0.0) {
+        println("Valor inválido. Por favor, informe um número válido para o preço da gasolina.")
+        return lerPrecoGasolina(posto)
+    }
+}
+
+fun calcularMelhorPrecoCombustivel(postoAlcoolBarato: Posto, postoGasolinaBarata: Posto): Posto {
+    return when {
+        postoAlcoolBarato.precoAlcool / postoGasolinaBarata.precoGasolina < 0.7 -> {
+            postoAlcoolBarato.maisBarato = "álcool"
+            postoAlcoolBarato
+        }
+
+        else -> {
+            postoGasolinaBarata.maisBarato = "gasolina"
+            postoGasolinaBarata
+        }
+    }
 }
 
 fun manutencaoArCondicionados() {
