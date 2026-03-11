@@ -562,7 +562,7 @@ fun solicitarNomeReservante(): String? {
     }
 }
 
-fun solicitarDuracaoEvento(diaReserva: String, horarioReserva: Int): Int? {
+private fun solicitarDuracaoEvento(diaReserva: String, horarioReserva: Int): Int? {
     println("Digite a duração do evento em horas: ")
     val duracao = readln().toIntOrNull() ?: 0
     if (duracao <= 0) {

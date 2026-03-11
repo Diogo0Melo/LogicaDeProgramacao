@@ -13,7 +13,7 @@ fun main() {
 
 fun inicio() {
     print("Bem vindo ao $NOME_HOTEL!\n")
-    println("1 - Reservar Quarto; 2 - Cadastrar Hóspedes; 3 - Menu Hóspedes;")
+    println("1 - Reservar Quarto; 2 - Cadastrar Hóspedes; 3 - Menu Hóspedes; 4 - Reservar Auditório")
     println("Escolha uma opção:")
     // A varival escolha armazena a opção escolhida pelo usuário.
     // uma variavel local é utilizada apenas dentro da função inicio().
@@ -22,8 +22,9 @@ fun inicio() {
         1 -> reservarQuarto()
         2 -> cadastrarHospedes()
         3 -> menuHospedes()
-        4 -> AbastecimentoDeAutomoveis()
-        5 -> sairDoHotel()
+        4 -> reservarAuditorio()
+        5 -> AbastecimentoDeAutomoveis()
+        6 -> sairDoHotel()
         else -> erro()
     }
 }
