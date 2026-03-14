@@ -8,7 +8,7 @@ Verifique se o planeta que o usuário informou está na array e informe ao usuá
 
 val PLANETAS = listOf("Terra", "Marte", "Plutão", "Vênus", "Júpiter", "Saturno")
 
-fun main() {
+private fun main() {
     val nomePlaneta = pedirNomePlaneta()
     verificarPlaneta(nomePlaneta)
 }

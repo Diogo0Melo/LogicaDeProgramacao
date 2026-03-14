@@ -7,16 +7,16 @@ Crie um programa onde o usuário possa cadastrar estudantes sem limites, e, em s
 
 val estudantes: MutableList<String> = mutableListOf()
 
-fun main(){
-    cadastrarEstudante()
+private fun main() {
+    return cadastrarEstudante()
 }
 
-fun cadastrarEstudante(){
+fun cadastrarEstudante() {
     println("Digite \"PARE\" ")
     println("Qual o nome do estudante?")
     val nomeEstudante = readln().trim()
     if (nomeEstudante.uppercase() == "PARE") return imprimirInformacoes()
-    else if (nomeEstudante.isNotBlank()){
+    else if (nomeEstudante.isNotBlank()) {
         estudantes.add(nomeEstudante)
         return main()
     }
@@ -24,7 +24,7 @@ fun cadastrarEstudante(){
     return cadastrarEstudante()
 }
 
-fun imprimirInformacoes(){
+fun imprimirInformacoes() {
     println("Quantidade de estudantes: ${estudantes.size}")
     println("Nomes: $estudantes")
 }
